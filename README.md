@@ -1,6 +1,6 @@
 # coverSlider
 
-A multidirectionnal cover slider built on top of jQuery. Althought It works It's still pretty unstable and needs some reworking until I can release a stable one ready for production.
+A multidirectionnal cover slider built on top of jQuery. Althought It works It's still pretty unstable and needs some reworking until I can release a stable version ready for production.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
