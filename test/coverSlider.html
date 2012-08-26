@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cover Slider Test Suite</title>
+  <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
+  <script src="../libs/jquery-loader.js"></script>
+  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
+  <link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
+  <script src="../libs/qunit/qunit.js"></script>
+  <!-- Load local History.js -->
+  <script src="../libs/history.adapter.jquery.js"></script>
+  <script src="../libs/history.js"></script>
+  <!-- Load local lib and tests. -->
+  <script src="../src/coverSlider.js"></script>
+  <script src="coverSlider_test.js"></script>
+  <!-- Removing access to jQuery and $. But it'll still be available as _$, if
+       you REALLY want to mess around with jQuery in the console. REMEMBER WE
+       ARE TESTING YOUR PLUGIN HERE -->
+  <script>window._$ = jQuery.noConflict(true);</script>
+  <link rel="stylesheet" type="text/css" href="../src/coverSlider.css">
+</head>
+<body>
+  <h1 id="qunit-header">Cover Slider Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+    <div id="vertical" class="coverSlider coverSlider-vertical">
+      <div class="coverSlider-inner">
+        <section id="first">
+          First
+        </section>
+        <!-- eo #first -->
+        <section id="second">
+          <div id="horizontal" class="coverSlider coverSlider-horizontal">
+            <div class="coverSlider-inner">
+              <section id="horizontal-first">
+                Second > First
+              </section>
+              <section id="horizontal-second">
+                Second > Second
+              </section>
+              <section id="horizontal-third" style="background: #333">
+                Second > Third
+              </section>
+            </div>
+            <a class="coverSlider-button coverSlider-prev" href="#" data-goto="prev">Previous</a>
+            <a class="coverSlider-button coverSlider-next" href="#" data-goto="next">Next</a>
+          </div>
+        </section>
+        <!-- eo #second -->
+        <section id="third">
+          Third
+        </section>
+        <!-- eo #third -->
+      </div>
+    </div>
+</body>
+</html>

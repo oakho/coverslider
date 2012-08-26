@@ -1,0 +1,15 @@
+body,html{font-family:Helvetica,Tahoma,Arial,sans-serif;overflow:hidden;height:100%;width:100%;padding:0;margin:0}
+a,a:visited,a:focus{color:#f84290;text-decoration:none;font-weight:bold}
+ul,li{padding:0;margin:0}
+nav{z-index:100;position:absolute;right:20px;top:20px}
+nav ul{list-style-type:none;margin:0;padding:0}
+nav > ul li{display:inline-block}
+nav ul a{padding:10px}
+nav ul li ul{display:none}
+.coverSlider-vertical,.coverSlider-horizontal{overflow:hidden;position:relative}
+.coverSlider-vertical section,.coverSlider-horizontal section{position:relative}
+.coverSlider-horizontal section{float:left;display:inline-block}
+.coverSlider-inner{position:relative;height:100%}
+.coverSlider-button{height:50px;width:50px;position:absolute;top:50%;margin-top:-25px;background:#000;z-index:1000}
+.coverSlider-prev{left:0}
+.coverSlider-next{right:0}

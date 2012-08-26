@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="../libs/jquery-loader.js"></script>
+  <script src="../libs/history.js"></script>
+  <script src="../libs/history.adapter.jquery.js"></script>
+  <script src="../src/coverSlider.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      var coverSlider = $("#vertical").coverSlider({duration: 800, resetNested: true});
+
+      $("nav").on('click', 'a', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        coverSlider.trigger('goto.coverSlider', [$(this).data('coverslider-goto')]);
+      });
+
+      coverSlider.on('step.coverSlider', function(e, now, fx) {
+        e.stopPropagation();
+        if(e.target === e.currentTarget) {
+        }
+      }).on('complete.coverSlider', function(e, destination) {
+        e.stopPropagation();
+        if(e.target === e.currentTarget) {
+        }
+      });
+
+      $("#horizontal").on('step.coverSlider', function(e, now, fx) {
+        if(e.target === e.currentTarget) {
+        }
+      }).on('complete.coverSlider', function(e, destination) {
+        if(e.target === e.currentTarget) {
+        }
+      });
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="../src/coverSlider.css">
+</head>
+<body>
+  <nav id="coverSlider-nav">
+      <ul>
+        <li><a href="first" data-coverslider-goto="#first">First</a></li>
+        <li><a href="second" data-coverslider-goto="#second">Second</a>
+          <ul>
+            <li><a href="second" data-coverslider-goto="#second">Second First</a></li>
+            <li><a href="second" data-coverslider-goto="#second">Second Second</a></li>
+            <li><a href="second" data-coverslider-goto="#second">Second Third</a></li>
+          </ul>
+        </li>
+        <li><a href="third" data-coverslider-goto="#third">Third</a></li>
+      </ul>
+    </nav>
+    <div id="vertical" class="coverSlider coverSlider-horizontal">
+      <div class="coverSlider-inner">
+        <section id="first" style="background: #333">
+
+        </section>
+        <!-- eo #first -->
+        <section id="second" style="background: #666">
+          <div id="horizontal" class="coverSlider coverSlider-horizontal">
+            <div class="coverSlider-inner">
+              <section id="horizontal-first" style="background: #666">
+
+              </section>
+              <section id="horizontal-second" style="background: #eee">
+
+              </section>
+              <section id="horizontal-third" style="background: #999">
+
+              </section>
+            </div>
+            <a class="coverSlider-button coverSlider-prev" href="#" data-goto="prev"></a>
+            <a class="coverSlider-button coverSlider-next" href="#" data-goto="next"></a>
+          </div>
+        </section>
+        <!-- eo #second -->
+        <section id="third" style="background: #999">
+
+        </section>
+        <!-- eo #third -->
+      </div>
+    </div>
+</body>
+
+</html>

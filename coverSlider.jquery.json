@@ -1,0 +1,33 @@
+{
+  "name": "coverSlider",
+  "title": "Cover Slider",
+  "description": "A vertical and horizontal cover slider",
+  "version": "0.1.0",
+  "homepage": "https://github.com/oakho/coverSlider",
+  "author": {
+    "name": "Antoine Lagadec",
+    "email": "hello@antoinelagadec.com",
+    "url": "http://antoinelagadec.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oakho/coverSlider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oakho/coverSlider/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/oakho/coverSlider/blob/master/LICENSE-MIT"
+    },
+    {
+      "type": "GPL",
+      "url": "https://github.com/oakho/coverSlider/blob/master/LICENSE-GPL"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
+  "keywords": []
+}
