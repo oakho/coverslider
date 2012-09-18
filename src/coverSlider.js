@@ -31,24 +31,10 @@
     this.$inner    = this.$element.children('.coverSlider-inner');
     this.$covers   = this.$inner.children('section');
     this.$active   = this.$covers.first().addClass('active');
-    this.$nested   = $();
-
-    // Initialize all cover sliders nested inside the current element's section
-    // should be rewritten to be able to set type attribute from a data attribute
-    // on the element
-    verticals = this.$element.find('.coverSlider-vertical').coverSlider({
-      duration: this.options.duration,
-      easing: this.options.easing
-    }, true);
-    horizontals = this.$element.find('.coverSlider-horizontal').coverSlider({
-      type: 'horizontal',
-      duration: this.options.duration,
-      easing: this.options.easing
-    }, true);
-
-    // Keep a reference of all initialized nested sliders
-    if (horizontals.length) { this.$nested.push(horizontals); }
-    if (verticals.length) { this.$nested.push(verticals); }
+    this.$nested   = this.$element.find('[data-coverslider]').coverSlider({
+                        duration: this.options.duration,
+                        easing: this.options.easing
+                      }, true);
   };
 
   $.coverSlider.prototype = {
@@ -216,7 +202,8 @@
     return this.each(function() {
       var $this  = $(this),
           data   = $this.data('coverSlider'),
-          opts   = $.extend({}, $.fn.coverSlider.defaults, options),
+          type   = { type: $this.attr('data-coverslider') },
+          opts   = $.extend({}, $.fn.coverSlider.defaults, options, type),
           nested = nested || false;
 
       if (!data) {
