@@ -21,7 +21,7 @@
     var verticals, horizontals;
 
     // Public attributes
-    this.version   = '0.1.0';
+    this.version   = '0.1.1';
     this.element   = element;
     this.options   = options;
     this.nested    = nested;
@@ -126,6 +126,7 @@
 
     resetNested: function() {
       this.$nested.each(function(i, el) {
+        // Disabled until I find a better way to make it work
         // $(this).trigger('goto', '#'+ $(this).find('section').first().attr('id'));
       });
     },
