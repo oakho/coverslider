@@ -53,13 +53,13 @@
       // on slider's sections on window resize
       $(window).on('resize', $.proxy(this.setContainersSize, this));
 
-      this.$element.on('click', '[data-goto]', function(event) {
+      this.$element.on('click', '[data-coverslider-goto]', function(event) {
+        if ($(this).data('coverslider-goto') === 'prev') { self.prev(); }
+        if ($(this).data('coverslider-goto') === 'next') { self.next(); }
+
         event.preventDefault();
         // Avoid bubbling issue that resizes parent slider when sliders are nested
         event.stopPropagation();
-
-        if ($(this).data('goto') === 'prev') { self.prev(); }
-        if ($(this).data('goto') === 'next') { self.next(); }
       });
 
       // Listen to goto event to slide to given destination
@@ -67,7 +67,7 @@
 
       // Listen to statechange event on the main slider then trigger goto event
       // to bring the user back and forth in the browser history
-      if (!this.nested) {
+      if (window.location.protocol !== "file:" &&  !this.nested) {
         window.History.Adapter.bind(window, 'statechange', function(e) {
           var state = window.History.getState();
           $(state.data.element).trigger('goto.coverSlider', [state.data.destination]);
@@ -76,17 +76,15 @@
     },
 
     goTo: function(event, destination) {
-      // Avoid bubbling issue when sliders are nested
-      event.stopPropagation();
-      var self = this,
-        to, toIndex, position, properties, historyData;
+      var self = this, to, toIndex, position, properties, data;
 
-      to = $(destination);
-      toIndex = this.$covers.index(to);
-      position = this.getPosition(toIndex);
+      if(typeof destination === "string") { destination = $(destination); }
 
       // Do nothing if the section doesn't exist
-      if (!to.length) { return; }
+      if (destination === undefined) { return; }
+
+      toIndex = this.$covers.index(destination);
+      position = this.getPosition(toIndex);
 
       // Reset nested sliders position
       if (!this.nested && this.options.resetNested) { this.resetNested(); }
@@ -104,32 +102,26 @@
         complete: function() {
           self.$element.trigger('complete.coverSlider');
           self.$inner.children('.active').removeClass('active');
-          self.$active = to.addClass('active');
+          self.$active = destination.addClass('active');
 
-          if (!self.nested) {
-            historyData = {
-              element: '#' + self.$element.attr('id'),
-              destination: destination
-            };
-            window.History.pushState(historyData, null, destination.replace(/\#/g, ''))
+          if (window.location.protocol !== "file:" && !self.nested) {
+            data = { element: '#' + self.$element.attr('id'), destination: destination.attr('id') };
+            window.History.pushState(data, null, destination.attr('id'));
           }
         },
         easing: this.options.easing
       });
+
+      // Avoid bubbling issue when sliders are nested
+      event.stopPropagation();
     },
 
     prev: function() {
-      var prev = this.$active.prev().attr('id');
-      if (prev !== undefined) {
-        this.$element.trigger('goto.coverSlider', ['#' + prev]);
-      }
+      this.$element.trigger('goto.coverSlider', [this.$active.prev()]);
     },
 
     next: function() {
-      var next = this.$active.next().attr('id');
-      if (next !== undefined) {
-        this.$element.trigger('goto.coverSlider', ['#' + next]);
-      }
+      this.$element.trigger('goto.coverSlider', [this.$active.next()]);
     },
 
     resetNested: function() {
@@ -139,16 +131,12 @@
     },
 
     setContainersSize: function(event) {
-      var self = this,
-        windowWidth, windowHeight, direction, position;
+      var self = this, windowWidth, windowHeight, direction, position;
 
-      // Avoid bubbling issue that resizes parent slider when sliders are nested
-      event.stopPropagation();
-
-      windowWidth = $(window).width();
+      windowWidth  = $(window).width();
       windowHeight = $(window).height();
-      direction = this.getDirectionProperty();
-      position = this.getPosition(this.$active.index());
+      direction    = this.getDirectionProperty();
+      position     = this.getPosition(this.$active.index());
 
       this.$inner.css(direction, position);
 
@@ -162,6 +150,9 @@
       this.$covers.each(function(i, el) {
         $(this).width(windowWidth).height(windowHeight);
       });
+
+      // Avoid bubbling issue that resizes parent slider when sliders are nested
+      event.stopPropagation();
     },
 
     /**

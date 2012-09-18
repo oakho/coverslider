@@ -12,7 +12,8 @@
 
       $("nav").on('click', 'a', function(e) {
         e.preventDefault(); e.stopPropagation();
-        coverSlider.trigger('goto.coverSlider', [$(this).data('coverslider-goto')]);
+        var destination = $($(this).data('coverslider-goto'));
+        coverSlider.trigger('goto.coverSlider', [destination]);
       });
 
       coverSlider.on('step.coverSlider', function(e, now, fx) {
@@ -69,8 +70,8 @@
 
               </section>
             </div>
-            <a class="coverSlider-button coverSlider-prev" href="#" data-goto="prev"></a>
-            <a class="coverSlider-button coverSlider-next" href="#" data-goto="next"></a>
+            <a class="coverSlider-button coverSlider-prev" href="#" data-coverslider-goto="prev"></a>
+            <a class="coverSlider-button coverSlider-next" href="#" data-coverslider-goto="next"></a>
           </div>
         </section>
         <!-- eo #second -->
